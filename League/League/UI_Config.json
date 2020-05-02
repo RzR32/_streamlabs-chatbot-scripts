@@ -1,0 +1,93 @@
+{
+  "output_file": "settings.json",
+  "SummonerName": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "SummonerName",
+    "tooltip": "SummonerName",
+    "group": "League"
+  },
+  "Server": {
+    "type": "dropdown",
+    "value": "euw1",
+    "items": ["br1","eun1","euw1","jp1","kr","la1","la2","na1","oc1","ru","tr1"],
+    "label": "Server on which the summoner is playing.",
+    "tooltip": "Riot Server",
+    "group": "League"
+  },
+  "Elo": {
+    "type": "textbox",
+    "value": "!elo",
+    "label": "How the Command will be triggered.",
+    "tooltip": "How the Command will be triggered.",
+    "group": "Elo"
+  },
+  "Cooldown_Elo": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "Elo"
+  },
+  "Permission_Elo": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": ["Everyone","Regular","Subscriber","Moderator","Editor","Caster"],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "Elo"
+  },
+  "Mastery": {
+    "type": "textbox",
+    "value": "!mastery",
+    "label": "How the Command will be triggered.",
+    "tooltip": "How the Command will be triggered.",
+    "group": "Mastery"
+  },
+  "Cooldown_Mastery": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "Mastery"
+  },
+  "Permission_Mastery": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": ["Everyone","Regular","Subscriber","Moderator","Editor","Caster"],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command.",
+    "group": "Mastery"
+  },
+  "Mastery_count": {
+    "type": "slider",
+    "value": 3,
+    "min": 1,
+    "max": 100,
+    "ticks": 1,
+    "label": "How many Champs (one Champ per Message).",
+    "tooltip": "How many Champs (one Champ per Message).",
+    "group": "Mastery"
+  },
+  "Token": {
+    "type": "textbox",
+    "value": "",
+    "label": "Riot Games API Token",
+    "tooltip": "Enter your Riot Games Api Token here.",
+    "group": "Token"
+  },
+  "openReadMe": {
+    "type": "button",
+    "label": "Open the Riot Games Developer website",
+    "tooltip": "Don't worry about the cmd window.",
+    "function": "OpenReadAPI",
+    "wsevent": "",
+    "group": "Token"
+  }
+}
