@@ -14,7 +14,7 @@ clr.AddReference("IronPython.Modules.dll")
 # ---------------------------
 #   [Required] Script Information
 # ---------------------------
-ScriptName = "League Script"
+ScriptName = "League Elo/Mastery Script"
 Website = "https://twitch.tv/RzR32"
 Description = "Send your League of Legends Elo/Mastery in your Stream Chat - Unofficial"
 Creator = "RzR32"
