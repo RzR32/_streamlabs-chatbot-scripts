@@ -10,7 +10,19 @@
   "Server": {
     "type": "dropdown",
     "value": "euw1",
-    "items": ["br1","eun1","euw1","jp1","kr","la1","la2","na1","oc1","ru","tr1"],
+    "items": [
+      "br1",
+      "eun1",
+      "euw1",
+      "jp1",
+      "kr",
+      "la1",
+      "la2",
+      "na1",
+      "oc1",
+      "ru",
+      "tr1"
+    ],
     "label": "Server on which the summoner is playing.",
     "tooltip": "Riot Server",
     "group": "League"
@@ -35,7 +47,14 @@
   "Permission_Elo": {
     "type": "dropdown",
     "value": "Everyone",
-    "items": ["Everyone","Regular","Subscriber","Moderator","Editor","Caster"],
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
     "label": "Permission",
     "tooltip": "Who is able to use the command",
     "group": "Elo"
@@ -60,7 +79,14 @@
   "Permission_Mastery": {
     "type": "dropdown",
     "value": "Everyone",
-    "items": ["Everyone","Regular","Subscriber","Moderator","Editor","Caster"],
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
     "label": "Permission",
     "tooltip": "Who is able to use the command.",
     "group": "Mastery"
@@ -82,7 +108,7 @@
     "tooltip": "Enter your Riot Games Api Token here.",
     "group": "Token"
   },
-  "openReadMe": {
+  "openWebsite": {
     "type": "button",
     "label": "Open the Riot Games Developer website",
     "tooltip": "Don't worry about the cmd window.",
