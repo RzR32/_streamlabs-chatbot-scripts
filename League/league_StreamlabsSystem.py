@@ -45,13 +45,15 @@ class Settings:
             self.Server = "euw1"
             # Elo
             self.Elo = "!elo"
-            self.Cooldown_Elo = 10
-            self.Permission_Elo = "Everyone"
+            self.Elo_Cooldown = 10
+            self.Elo_Permission = "Everyone"
+            self.Elo_Usage = "Stream Chat"
             # Mastery
             self.Mastery = "!mastery"
-            self.Cooldown_Mastery = 10
-            self.Permission_Mastery = "Everyone"
-            self.Mastery_count = 3
+            self.Mastery_Cooldown = 10
+            self.Mastery_Permission = "Everyone"
+            self.Mastery_Count = 3
+            self.Mastery_Usage = "Stream Chat"
             # Token
             self.Token = ""
 
@@ -85,12 +87,11 @@ def Init():
 #   [Required] Execute Data / Process messages
 # ---------------------------
 def Execute(data):
+    # Elo Command
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Elo, data.User):
         Parent.SendStreamMessage(
             "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Elo, data.User)))
-
-    # Check if the propper command is used, the command is not on cooldown and the user has permission to use the
 
     # global var
     SummonerName = ScriptSettings.SummonerName
@@ -101,12 +102,10 @@ def Execute(data):
     headers = {"X-Riot-Token": Token}
     headers_json = {"content-type": "application/json"}
 
-    # Elo Command #
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and not Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Elo, data.User) and Parent.HasPermission(data.User,
-                                                                                ScriptSettings.Permission_Elo,
+                                                                                ScriptSettings.Elo_Permission,
                                                                                 ScriptSettings.SummonerName):
-        Parent.BroadcastWsEvent("EVENT_MINE", "{'show':false}")
 
         # String for the Summoner ID, needed to do the other request´s
         s_id = ""
@@ -200,23 +199,35 @@ def Execute(data):
             string_tft = "TFT Unranked"
 
         string_out_elo = " ♦ " + string_solo + " ♦ " + string_flex + " ♦ " + string_tft + " ♦ "
-        Parent.SendStreamMessage(string_out_elo)
+
+        if data.IsFromTwitch():
+            if ScriptSettings.Elo_Usage == "Stream Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+                Parent.SendStreamMessage(string_out_elo)
+        if data.IsFromDiscord():
+            if ScriptSettings.Elo_Usage == "Discord Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+                Parent.SendDiscordMessage(string_out_elo)
 
         # Put the Command - Elo on cooldown
         Parent.AddUserCooldown(ScriptName, ScriptSettings.Elo, data.User,
-                               ScriptSettings.Cooldown_Elo)
+                               ScriptSettings.Elo_Cooldown)
+    #
+    #
+    #
+    #
+    # Mastery Command
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and Parent.IsOnUserCooldown(
+            ScriptName, ScriptSettings.Mastery, data.User):
+        Parent.SendStreamMessage(
+            "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Mastery, data.User)))
 
-    # Mastery Command #
-    elif data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and not Parent.IsOnUserCooldown(
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and not Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Mastery, data.User) and Parent.HasPermission(data.User,
-                                                                                    ScriptSettings.Permission_Mastery,
+                                                                                    ScriptSettings.Mastery_Permission,
                                                                                     ScriptSettings.SummonerName):
-        Parent.BroadcastWsEvent("EVENT_MINE", "{'show':false}")
-
         # Start int for Count
         int_to_count = 0
         # End int for Count
-        int_config = ScriptSettings.Mastery_count
+        int_config = ScriptSettings.Mastery_Count
 
         # String for the Summoner ID, needed to do the other request´s
         s_id = ""
@@ -353,10 +364,15 @@ def Execute(data):
                         else:
                             break
         # OUTPUT
-        Parent.SendStreamMessage(string_out_mastery + " ♦ ")
+        if data.IsFromTwitch():
+            if ScriptSettings.Mastery_Usage == "Stream Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
+                Parent.SendStreamMessage(string_out_mastery + " ♦ ")
+        if data.IsFromDiscord():
+            if ScriptSettings.Mastery_Usage == "Discord Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
+                Parent.SendDiscordMessage(string_out_mastery + " ♦ ")
 
         # Put the Command - Mastery on cooldown
-        Parent.AddUserCooldown(ScriptName, ScriptSettings.Mastery, data.User, ScriptSettings.Cooldown_Mastery)
+        Parent.AddUserCooldown(ScriptName, ScriptSettings.Mastery, data.User, ScriptSettings.Mastery_Cooldown)
     return
 
 

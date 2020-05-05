@@ -27,6 +27,7 @@
     "tooltip": "Riot Server",
     "group": "League"
   },
+
   "Elo": {
     "type": "textbox",
     "value": "!elo",
@@ -34,7 +35,7 @@
     "tooltip": "How the Command will be triggered.",
     "group": "Elo"
   },
-  "Cooldown_Elo": {
+  "Elo_Cooldown": {
     "type": "slider",
     "value": 10,
     "min": 0,
@@ -44,7 +45,7 @@
     "tooltip": "How long the command should go on cooldown for.",
     "group": "Elo"
   },
-  "Permission_Elo": {
+  "Elo_Permission": {
     "type": "dropdown",
     "value": "Everyone",
     "items": [
@@ -59,6 +60,15 @@
     "tooltip": "Who is able to use the command",
     "group": "Elo"
   },
+  "Elo_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "label": "Usage",
+    "tooltip": "Usage for where the script can be used!",
+    "group": "Elo"
+  },
+
   "Mastery": {
     "type": "textbox",
     "value": "!mastery",
@@ -66,7 +76,7 @@
     "tooltip": "How the Command will be triggered.",
     "group": "Mastery"
   },
-  "Cooldown_Mastery": {
+  "Mastery_Cooldown": {
     "type": "slider",
     "value": 10,
     "min": 0,
@@ -76,7 +86,7 @@
     "tooltip": "How long the command should go on cooldown for.",
     "group": "Mastery"
   },
-  "Permission_Mastery": {
+  "Mastery_Permission": {
     "type": "dropdown",
     "value": "Everyone",
     "items": [
@@ -91,7 +101,7 @@
     "tooltip": "Who is able to use the command.",
     "group": "Mastery"
   },
-  "Mastery_count": {
+  "Mastery_Count": {
     "type": "slider",
     "value": 3,
     "min": 1,
@@ -101,6 +111,15 @@
     "tooltip": "How many Champs (one Champ per Message).",
     "group": "Mastery"
   },
+  "Mastery_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "label": "Usage",
+    "tooltip": "Usage for where the script can be used!",
+    "group": "Mastery"
+  },
+
   "Token": {
     "type": "textbox",
     "value": "",
