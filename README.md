@@ -4,7 +4,7 @@
 
 ---
 
-These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe ther work somewhere else, but I do not guarantee this)
+These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe they work somewhere else, but I do not guarantee this)
 
 ---
 # League
