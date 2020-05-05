@@ -46,6 +46,14 @@
     "wsevent": "",
     "group": "Clips"
   },
+  "Clips_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "label": "Usage",
+    "tooltip": "Usage for where the script shows!",
+    "group": "Clips"
+  },
 
   "Videos": {
     "type": "checkbox",
@@ -64,7 +72,7 @@
   "Videos_Upload": {
     "type": "checkbox",
     "value": true,
-    "label": "Upload\" dis- / enable",
+    "label": "Upload dis- / enable",
     "tooltip": "True if you want to check for new Upload\"",
     "group": "Videos"
   },
@@ -89,8 +97,16 @@
     "type": "button",
     "label": "Delete the txt. file for the latest videos.",
     "tooltip": "Delete the txt. file for the latest videos.",
-    "function": "del_latest_videos",
+    "function": "del_latest_video",
     "wsevent": "",
+    "group": "Videos"
+  },
+  "Videos_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "label": "Usage",
+    "tooltip": "Usage for where the script shows!",
     "group": "Videos"
   },
 

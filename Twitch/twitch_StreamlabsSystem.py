@@ -51,12 +51,14 @@ class Settings:
             self.Clips = True
             self.Clips_Period = "day"
             self.Clips_Limit = 10
+            self.Clips_Usage = "Stream Chat"
             # Videos
             self.Videos = True
             self.Videos_Archive = True
             self.Videos_Upload = True
             self.Videos_Broadcast = True
             self.Videos_Limit = 10
+            self.Videos_Usage = "Stream Chat"
             # Token
             self.Token = ""
             # Query
@@ -148,7 +150,10 @@ def TIMER():
 
                         if not lines.__contains__(slug):
                             file_latest_clip.write(slug + "\n")
-                            Parent.SendStreamMessage("'" + curator + "' hat ein Clip erstellt > " + slug)
+                            if ScriptSettings.Clips_Usage == "Stream Chat" or ScriptSettings.Clips_Usage == "Chat Both":
+                                Parent.SendStreamMessage("'" + curator + "' hat ein Clip erstellt > " + slug)
+                            if ScriptSettings.Clips_Usage == "Discord Chat" or ScriptSettings.Clips_Usage == "Chat Both":
+                                Parent.SendDiscordMessage("'" + curator + "' hat ein Clip erstellt > " + slug)
 
         file_latest_clip.close()
     # CLIP
@@ -224,7 +229,11 @@ def TIMER():
                         if not url == "":
                             if not lines.__contains__(url):
                                 file_latest_video.write(url + "\n")
-                                Parent.SendStreamMessage("Neues Video bei '" + curator + "' (" + type + ") " + url)
+                                if ScriptSettings.Videos_Usage == "Stream Chat" or ScriptSettings.Videos_Usage == "Chat Both":
+                                    Parent.SendStreamMessage("Neues Video bei '" + curator + "' (" + type + ") " + url)
+                                if ScriptSettings.Videos_Usage == "Discord Chat" or ScriptSettings.Videos_Usage == "Chat Both":
+                                    Parent.SendDiscordMessage("Neues Video bei '" + curator + "' (" + type + ") " + url)
+
         file_latest_video.close()
     # VIDEO
 
