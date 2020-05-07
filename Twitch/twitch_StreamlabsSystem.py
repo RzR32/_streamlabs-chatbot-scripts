@@ -84,7 +84,7 @@ class Settings:
 #   [Required] Initialize Data (Only called on load)
 # ---------------------------
 def Init():
-    #   Load settings
+    # Load settings
     global ScriptSettings
     ScriptSettings = Settings(settingsFile)
     return
@@ -93,7 +93,7 @@ def Init():
 # ---------------------------
 #   TIMER
 # ---------------------------
-def TIMER():
+def twitch_request():
     username = ScriptSettings.Twitchname
     Token = ScriptSettings.Token
 
@@ -267,18 +267,17 @@ def del_latest_videos():
 
 
 # ---------------------------
-# Start the timer - manuel
+# Make the Request one time - manuel
 # ---------------------------
 def start():
-    TIMER()
+    twitch_request()
 
 
 # ---------------------------
-# Start the timer - manuel
+# Make the Request one time and start the timer - manuel
 # ---------------------------
 def start_Timer():
-    # timer to repeat
-    TIMER()
+    twitch_request()
     threading.Timer(ScriptSettings.Query * 60, start_Timer).start()
 
 
