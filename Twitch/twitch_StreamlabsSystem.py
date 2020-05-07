@@ -29,7 +29,6 @@ settingsFile = os.path.join(os.path.dirname(__file__), "settings.json")
 # Path for the clip file
 file_latest_clip_path = "Services/Scripts/Twitch/latest_clip.txt"
 file_latest_video_path = "Services/Scripts/Twitch/latest_video.txt"
-file_debug_path = "Services/Scripts/Twitch/debug.txt"
 
 
 # ---------------------------------------
