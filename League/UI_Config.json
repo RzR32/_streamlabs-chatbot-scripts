@@ -131,7 +131,7 @@
     "type": "button",
     "label": "Open the Riot Games Developer website",
     "tooltip": "Don't worry about the cmd window.",
-    "function": "OpenReadAPI",
+    "function": "OpenRiotAPI",
     "wsevent": "",
     "group": "Token"
   }

@@ -77,7 +77,7 @@ class Settings:
 #   [Required] Initialize Data (Only called on load)
 # ---------------------------
 def Init():
-    #   Load settings
+    # Load settings
     global ScriptSettings
     ScriptSettings = Settings(settingsFile)
     return
@@ -379,7 +379,7 @@ def Execute(data):
 # ---------------------------
 # Open the Riot Games Developer website
 # ---------------------------
-def OpenReadAPI():
+def OpenRiotAPI():
     os.system("start \"\" https://developer.riotgames.com/")
 
 
