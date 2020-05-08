@@ -61,7 +61,7 @@ class Settings:
             # Token
             self.Token = ""
             # Query
-            self.Query = 300
+            self.Query = 5
 
     # Reload settings on save through UI
     def Reload(self, data):
