@@ -5,6 +5,7 @@
 import codecs
 import os
 import json
+import threading
 
 import clr
 
@@ -16,7 +17,7 @@ clr.AddReference("IronPython.Modules.dll")
 # ---------------------------
 ScriptName = "League Elo/Mastery Script"
 Website = "https://twitch.tv/RzR32"
-Description = "Send your League of Legends Elo/Mastery in your Stream Chat - Unofficial"
+Description = "Send your League of Legends Elo/Mastery in your Stream Chat and/or as text overlay - Unofficial"
 Creator = "RzR32"
 Version = "0.1"
 
@@ -56,6 +57,8 @@ class Settings:
             self.Mastery_Usage = "Stream Chat"
             # Token
             self.Token = ""
+            # Query
+            self.Query = 5
 
     # Reload settings on save through UI
     def Reload(self, data):
@@ -102,29 +105,43 @@ def Init():
 # ---------------------------
 def Execute(data):
     # Elo
+    # if the cmd is on cool down
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Elo, data.User):
         Parent.SendStreamMessage(
             "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Elo, data.User)))
-
+    # make the cmd, if not on cool down
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and not Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Elo, data.User) and Parent.HasPermission(data.User,
                                                                                 ScriptSettings.Elo_Permission,
                                                                                 ScriptSettings.SummonerName):
-        ELO(data)
+        if data.IsFromTwitch():
+            if ScriptSettings.Elo_Usage == "Stream Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+                ELO("twitch")
+        if data.IsFromDiscord():
+            if ScriptSettings.Elo_Usage == "Discord Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+                ELO("discord")
+        # set the cool down
         Parent.AddUserCooldown(ScriptName, ScriptSettings.Elo, data.User, ScriptSettings.Elo_Cooldown)
-
+    #
     # Mastery
+    # if the cmd is on cool down
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Mastery, data.User):
         Parent.SendStreamMessage(
             "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Mastery, data.User)))
-
+    # make the cmd, if not on cool down
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and not Parent.IsOnUserCooldown(
             ScriptName, ScriptSettings.Mastery, data.User) and Parent.HasPermission(data.User,
                                                                                     ScriptSettings.Mastery_Permission,
                                                                                     ScriptSettings.SummonerName):
-        MASTERY(data)
+        if data.IsFromTwitch():
+            if ScriptSettings.Mastery_Usage == "Stream Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
+                MASTERY("twitch")
+        if data.IsFromDiscord():
+            if ScriptSettings.Mastery_Usage == "Discord Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
+                MASTERY("discord")
+        # set the cool down
         Parent.AddUserCooldown(ScriptName, ScriptSettings.Mastery, data.User, ScriptSettings.Mastery_Cooldown)
 
     return
@@ -133,7 +150,7 @@ def Execute(data):
 # ---------------------------------------
 # ELO functions
 # ---------------------------------------
-def ELO(data):
+def ELO(Usage):
     # Global Var
     SummonerName = ScriptSettings.SummonerName
     # Riot Server
@@ -151,7 +168,7 @@ def ELO(data):
     string_flex = ""
     string_tft = ""
 
-    # String´ to temporarily save the other string´s
+    # String´s to temporarily save the other string´s
     string_type = ""
     string_rank = ""
     string_tier = ""
@@ -226,7 +243,7 @@ def ELO(data):
 
             string_tft = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints
 
-    # OUTPUT
+    # change string if its null - OUTPUT
     if string_solo.__eq__(""):
         string_solo = "SOLO Unranked"
     if string_flex.__eq__(""):
@@ -253,19 +270,17 @@ def ELO(data):
     # Output for the Chat
     string_out_elo = " ♦ " + string_solo + " ♦ " + string_flex + " ♦ " + string_tft + " ♦ "
 
-    if data.IsFromTwitch():
-        if ScriptSettings.Elo_Usage == "Stream Chat" or ScriptSettings.Elo_Usage == "Chat Both":
-            Parent.SendStreamMessage(string_out_elo)
-    elif data.IsFromDiscord():
-        if ScriptSettings.Elo_Usage == "Discord Chat" or ScriptSettings.Elo_Usage == "Chat Both":
-            Parent.SendDiscordMessage(string_out_elo)
+    if Usage == "twitch":
+        Parent.SendStreamMessage(string_out_elo)
+    elif Usage == "discord":
+        Parent.SendDiscordMessage(string_out_elo)
     return
 
 
 # ---------------------------------------
 # MASTERY functions
 # ---------------------------------------
-def MASTERY(data):
+def MASTERY(Usage):
     # Global Var
     SummonerName = ScriptSettings.SummonerName
     # Riot Server
@@ -297,7 +312,7 @@ def MASTERY(data):
     string_out_mastery = ""
 
     # Game Version
-    s_game_verions = ""
+    s_game_version = ""
 
     # get latest game version
     response_game_version = Parent.GetRequest("https://ddragon.leagueoflegends.com/api/versions.json",
@@ -305,34 +320,34 @@ def MASTERY(data):
     out_game_version = response_game_version.split(',')
 
     file_path___champ_ID = "Services/Scripts/League/data/Champion_ID.txt"
-    file_champ_ID = open(file_path___champ_ID, "w+")
+    file_champ_ID = open(file_path___champ_ID, "w")  # >>> w or w+ <<<
 
-    for s_game_verions in out_game_version:
-        s_game_verions = s_game_verions.replace("[", "").replace("\"", "").replace("\\", "")
+    for s_game_version in out_game_version:
+        s_game_version = s_game_version.replace("[", "").replace("\"", "").replace("\\", "")
 
-        if s_game_verions.__contains__("response"):
-            s_game_verions = s_game_verions[14:]
+        if s_game_version.__contains__("response"):
+            s_game_version = s_game_version[14:]
             # check if file already exist
             if os.path.isfile(file_path___champ_ID):
                 # Check Version in File
-                with open(file_path___champ_ID, "r") as file:
-                    first_line = file.readline()
-                    if not first_line.__contains__(s_game_verions):
+                with open(file_path___champ_ID, "r") as file_champ:
+                    first_line = file_champ.readline()
+                    if not first_line.__contains__(s_game_version):
                         # version is the another, remake text file
-                        file_champ_ID.write("Version: " + s_game_verions + "\n\n")
-                        s_game_verions = "Y " + s_game_verions
+                        file_champ_ID.write("Version: " + s_game_version + "\n\n")
+                        s_game_version = "Y " + s_game_version
                     else:
-                        s_game_verions = "N " + s_game_verions
+                        s_game_version = "N " + s_game_version
                     break
             else:
                 # recreate file
-                file_champ_ID.write("Version: " + s_game_verions + "\n\n")
-                s_game_verions = "Y " + s_game_verions
+                file_champ_ID.write("Version: " + s_game_version + "\n\n")
+                s_game_version = "Y " + s_game_version
             break
 
-    if s_game_verions.startswith("Y "):
+    if s_game_version.startswith("Y "):
         # string_champion_id to string_champion_name
-        response_summoner_name = Parent.GetRequest("https://ddragon.leagueoflegends.com/cdn/" + s_game_verions[2:] +
+        response_summoner_name = Parent.GetRequest("https://ddragon.leagueoflegends.com/cdn/" + s_game_version[2:] +
                                                    "/data/de_DE/champion.json", headers_json)
         out_summoner_name = response_summoner_name.split(',')
 
@@ -424,13 +439,27 @@ def MASTERY(data):
                     else:
                         break
     # OUTPUT
-    if data.IsFromTwitch():
-        if ScriptSettings.Mastery_Usage == "Stream Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
-            Parent.SendStreamMessage(string_out_mastery + " ♦ ")
-    elif data.IsFromDiscord():
-        if ScriptSettings.Mastery_Usage == "Discord Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
-            Parent.SendDiscordMessage(string_out_mastery + " ♦ ")
+    if Usage == "twitch":
+        Parent.SendStreamMessage(string_out_mastery + " ♦ ")
+    elif Usage == "discord":
+        Parent.SendDiscordMessage(string_out_mastery + " ♦ ")
     return
+
+
+# ---------------------------
+# Open the Riot Games Developer website
+# ---------------------------
+def start():
+    ELO("")
+    MASTERY("")
+
+
+# ---------------------------
+# Make the Request one time and start the timer - manuel
+# ---------------------------
+def start_Timer():
+    start()
+    threading.Timer(ScriptSettings.Query * 60, start_Timer).start()
 
 
 # ---------------------------
