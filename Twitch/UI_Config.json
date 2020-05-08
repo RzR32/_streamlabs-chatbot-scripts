@@ -7,7 +7,6 @@
     "tooltip": "Twitchname",
     "group": "Twitch"
   },
-
   "Clips": {
     "type": "checkbox",
     "value": true,
@@ -49,12 +48,15 @@
   "Clips_Usage": {
     "type": "dropdown",
     "value": "Stream Chat",
-    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
     "label": "Usage",
     "tooltip": "Usage for where the script shows!",
     "group": "Clips"
   },
-
   "Videos": {
     "type": "checkbox",
     "value": true,
@@ -104,12 +106,15 @@
   "Videos_Usage": {
     "type": "dropdown",
     "value": "Stream Chat",
-    "items": ["Stream Chat","Discord Chat","Chat Both"],
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
     "label": "Usage",
     "tooltip": "Usage for where the script shows!",
     "group": "Videos"
   },
-
   "Token": {
     "type": "textbox",
     "value": "",
@@ -125,7 +130,6 @@
     "wsevent": "",
     "group": "Token"
   },
-
   "Query": {
     "type": "slider",
     "value": 5,
