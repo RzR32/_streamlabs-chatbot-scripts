@@ -12,9 +12,12 @@ These scripts are created for private use and are theoretically only for the Str
 - Customizable Command´s, Cooldown´s and Permission´s
 - (default Command "!elo") - display your League of Legends Rank in Solo, Flex & TFT in Chat
 - (default Command "!mastery) - display the x champs with the most points (x can be change in config)
+- text overlay for OBS or something else (Solo, Flex, TfT, Mastery of the Top x champs)
 - Stream, Discord and/or Both Chat
+- setup the Query rate
 - bad news, you need your own RIOT Games API key, the developer key only works for 24h, then you need a new key - but you can try to request a personal key [Riot Games Developer](https://developer.riotgames.com/)
 - [Download League.zip](https://github.com/RzR32/_streamlabs-chatbot-scripts/raw/master/League/League.zip)
+##### One Import Note! You must start the timer yourself, everytime you start the bot - go to the Script Settings, under 'Query' and press the Button 'Start Checking'.
 
 ---
 
@@ -26,8 +29,8 @@ These scripts are created for private use and are theoretically only for the Str
 - dis- / enable Videos
     - dis- / enable Archive(old Stream), Upload(self explaining) or/and Broadcast(Highlight)
     - also a limit 1 - 100
-- setup the Query rate
 - Stream, Discord and/or Both Chat
+- setup the Query rate
 - you just need your own Twitch API key [Twitch Console](https://dev.twitch.tv/console)
 - [Download Twitch.zip](https://github.com/RzR32/_streamlabs-chatbot-scripts/raw/master/Twitch/Twitch.zip)
 ##### One Import Note! You must start the timer yourself, everytime you start the bot - go to the Script Settings, under 'Query' and press the Button 'Start Checking'.

@@ -16,6 +16,7 @@ These scripts are created for private use and are theoretically only for the Str
 - dis- / enable Videos
     - dis- / enable Archive(old Stream), Upload(self explaining) or/and Broadcast(Highlight)
     - also a limit 1 - 100
+- Stream, Discord and/or Both Chat
 - setup the Query rate    
 - you just need your own Twitch API key [Twitch Console](https://dev.twitch.tv/console)
 - [Download Twitch.zip](https://github.com/RzR32/_streamlabs-chatbot-scripts/raw/master/Twitch/Twitch.zip)
