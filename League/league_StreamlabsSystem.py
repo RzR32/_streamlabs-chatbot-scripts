@@ -6,6 +6,7 @@ import codecs
 import os
 import json
 import threading
+from shutil import copy
 
 import clr
 
@@ -89,11 +90,30 @@ def Init():
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+    # Main Folder for ranks
     directory = os.path.join(os.path.dirname(__file__), "data/ranks")
     if not os.path.exists(directory):
         os.makedirs(directory)
+    # Solo "ranked" folder
+    directory = os.path.join(os.path.dirname(__file__), "data/ranks/solo")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    # Flex "ranked" folder
+    directory = os.path.join(os.path.dirname(__file__), "data/ranks/flex")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    # TfT "ranked" folder
+    directory = os.path.join(os.path.dirname(__file__), "data/ranks/tft")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
+    # Folder for champ mastery
     directory = os.path.join(os.path.dirname(__file__), "data/champs")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # folder for the other stuff
+    directory = os.path.join(os.path.dirname(__file__), "data/stuff")
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -173,6 +193,7 @@ def ELO(Usage):
     string_rank = ""
     string_tier = ""
     string_leaguePoints = ""
+    string_progress = ""
 
     # String for the output
     string_out_elo = ""
@@ -188,10 +209,10 @@ def ELO(Usage):
         s_summonerid = s_summonerid.replace("\"", "").replace("\\", "")
 
         if s_summonerid.__contains__("status: 4"):
-            Parent.Log("Execution failed! (Client Side)")
+            Parent.Log(ScriptName, "Execution failed! (Client Side)")
             return
         elif s_summonerid.__contains__("status: 5"):
-            Parent.Log("Execution failed! (Server Side)")
+            Parent.Log(ScriptName, "Execution failed! (Server Side)")
             return
 
         if s_summonerid.__contains__("response: id:"):
@@ -222,6 +243,63 @@ def ELO(Usage):
             elif string_type.__contains__("FLEX"):
                 string_flex = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints
 
+            # tier image
+            filename = string_tier.lower() + "_" + string_rank.lower() + ".png"
+            file_src = "Services/Scripts/League/data/stuff/Images/" + string_tier.lower() + "/" + filename
+            file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/rank.png"
+            copy(file_src, file_dst)
+            # tier trim
+            file_src = "Services/Scripts/League/data/stuff/Images/trims/" + string_tier.lower() + ".png"
+            file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/trim.png"
+            copy(file_src, file_dst)
+        elif s_league.startswith("progress"):
+            string_progress = s_league[9:]
+            string_progress = string_progress.replace("N", "/")
+
+            if string_type.__contains__("SOLO"):
+                string_solo = string_solo + " " + string_progress
+            elif string_type.__contains__("FLEX"):
+                string_flex = string_flex + " " + string_progress
+
+    file_src_unranked = "Services/Scripts/League/data/stuff/Images/not_ranked/unranked.png"
+    file_src_trim = "Services/Scripts/League/data/stuff/Images/trims/default.png"
+
+    # Output for the files
+    file_path___solo_path = "Services/Scripts/League/data/ranks/solo/solo_duo.txt"
+    file_solo = open(file_path___solo_path, "w")
+    file_solo.write(string_solo)
+    file_solo.close()
+
+    file_path___flex_path = "Services/Scripts/League/data/ranks/flex/flex.txt"
+    file_flex = open(file_path___flex_path, "w")
+    file_flex.write(string_flex)
+    file_flex.close()
+
+    if string_solo.__eq__(""):
+        string_solo = "SOLO Unranked"
+        # tier image
+        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/solo/rank.png"
+        copy(file_src_unranked, file_dst_unranked_rank)
+        # tier trim
+        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/solo/trim.png"
+        copy(file_src_trim, file_dst_unranked_trim)
+
+    if string_flex.__eq__(""):
+        string_flex = "FLEX Unranked"
+        # tier image
+        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/flex/rank.png"
+        copy(file_src_unranked, file_dst_unranked_rank)
+        # tier trim
+        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/flex/trim.png"
+        copy(file_src_trim, file_dst_unranked_trim)
+
+    # reset string´s
+    string_type = ""
+    string_rank = ""
+    string_tier = ""
+    string_leaguePoints = ""
+    string_progress = ""
+
     # get TfT elo
     url_tft = "https://" + _Server + ".api.riotgames.com/tft/league/v1/entries/by-summoner/"
     result_tft = Parent.GetRequest(url_tft + s_id, headers)
@@ -240,29 +318,31 @@ def ELO(Usage):
             string_rank = s_tft[5:]
         elif s_tft.startswith("leaguePoints"):
             string_leaguePoints = s_tft[13:] + "LP"
+        elif s_tft.startswith("progress"):
+            string_progress = s_tft[9:]
+            string_progress = string_progress.replace("N", "/")
 
-            string_tft = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints
+    string_tft = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints + " " + string_progress
+    # tier image
+    filename = string_tier.lower() + "_" + string_rank.lower() + ".png"
+    file_src = "Services/Scripts/League/data/stuff/Images/" + string_tier.lower() + "/" + filename
+    file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/rank.png"
+    copy(file_src, file_dst)
+    # tier trim
+    file_src = "Services/Scripts/League/data/stuff/Images/trims/" + string_tier.lower() + ".png"
+    file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/trim.png"
+    copy(file_src, file_dst)
 
-    # change string if its null - OUTPUT
-    if string_solo.__eq__(""):
-        string_solo = "SOLO Unranked"
-    if string_flex.__eq__(""):
-        string_flex = "FLEX Unranked"
     if string_tft.__eq__(""):
         string_tft = "TFT Unranked"
+        # tier image
+        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/tft/rank.png"
+        copy(file_src_unranked, file_dst_unranked_rank)
+        # tier trim
+        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/tft/trim.png"
+        copy(file_src_trim, file_dst_unranked_trim)
 
-    # Output for the files
-    file_path___solo_path = "Services/Scripts/League/data/ranks/solo_duo.txt"
-    file_solo = open(file_path___solo_path, "w")
-    file_solo.write(string_solo)
-    file_solo.close()
-
-    file_path___flexi_path = "Services/Scripts/League/data/ranks/flexi.txt"
-    file_flexi = open(file_path___flexi_path, "w")
-    file_flexi.write(string_flex)
-    file_flexi.close()
-
-    file_path___tft_path = "Services/Scripts/League/data/ranks/tft.txt"
+    file_path___tft_path = "Services/Scripts/League/data/ranks/tft/tft.txt"
     file_tft = open(file_path___tft_path, "w")
     file_tft.write(string_tft)
     file_tft.close()
@@ -319,7 +399,7 @@ def MASTERY(Usage):
                                               headers_json)
     out_game_version = response_game_version.split(',')
 
-    file_path___champ_ID = "Services/Scripts/League/data/Champion_ID.txt"
+    file_path___champ_ID = "Services/Scripts/League/data/stuff/Champion_ID.txt"
     file_champ_ID = open(file_path___champ_ID, "w")
 
     for s_game_version in out_game_version:
@@ -377,10 +457,10 @@ def MASTERY(Usage):
         s_summonerid = s_summonerid.replace("\"", "").replace("\\", "")
 
         if s_summonerid.__contains__("status: 4"):
-            Parent.SendStreamMessage("Execution failed! (Client Side)")
+            Parent.Log(ScriptName, "Execution failed! (Client Side)")
             return
         elif s_summonerid.__contains__("status: 5"):
-            Parent.SendStreamMessage("Execution failed! (Server Side)")
+            Parent.Log(ScriptName, "Execution failed! (Server Side)")
             return
 
         if s_summonerid.__contains__("response: id:"):
