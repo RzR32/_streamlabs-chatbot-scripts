@@ -188,10 +188,10 @@ def ELO(Usage):
         s_summonerid = s_summonerid.replace("\"", "").replace("\\", "")
 
         if s_summonerid.__contains__("status: 4"):
-            Parent.SendStreamMessage("Execution failed! (Client Side)")
+            Parent.Log("Execution failed! (Client Side)")
             return
         elif s_summonerid.__contains__("status: 5"):
-            Parent.SendStreamMessage("Execution failed! (Server Side)")
+            Parent.Log("Execution failed! (Server Side)")
             return
 
         if s_summonerid.__contains__("response: id:"):
@@ -215,7 +215,7 @@ def ELO(Usage):
         elif s_league.startswith("rank"):
             string_rank = s_league[5:]
         elif s_league.startswith("leaguePoints"):
-            string_leaguePoints = s_league[13:]
+            string_leaguePoints = s_league[13:] + "LP"
 
             if string_type.__contains__("SOLO"):
                 string_solo = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints
@@ -239,7 +239,7 @@ def ELO(Usage):
         elif s_tft.startswith("rank"):
             string_rank = s_tft[5:]
         elif s_tft.startswith("leaguePoints"):
-            string_leaguePoints = s_tft[13:]
+            string_leaguePoints = s_tft[13:] + "LP"
 
             string_tft = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints
 
@@ -320,7 +320,7 @@ def MASTERY(Usage):
     out_game_version = response_game_version.split(',')
 
     file_path___champ_ID = "Services/Scripts/League/data/Champion_ID.txt"
-    file_champ_ID = open(file_path___champ_ID, "w")  # >>> w or w+ <<<
+    file_champ_ID = open(file_path___champ_ID, "w")
 
     for s_game_version in out_game_version:
         s_game_version = s_game_version.replace("[", "").replace("\"", "").replace("\\", "")
@@ -414,23 +414,24 @@ def MASTERY(Usage):
                     if int_to_count < int_config:
                         int_to_count += 1
 
-                        file_champ_ID = open(file_path___champ_ID, "r")
-
                         file_path___champs = "Services/Scripts/League/data/champs/champ" + \
                                              int_to_count.__str__() + ".txt"
                         file_champs = open(file_path___champs, "w")
 
+                        file_champ_ID = open(file_path___champ_ID, "r")
                         Lines = file_champ_ID.readlines()
 
                         for line in Lines:
                             line = line.strip()
                             line = " " + line
                             if line.startswith(" " + string_champion_id + ":"):
+                                # Output Chat
                                 string_out_mastery = string_out_mastery + " ♦ " + int_to_count.__str__() + \
                                                      ". Champion: " + line[line.find(":") + 1:] + \
                                                      ", Level: " + string_champion_level + \
                                                      ", Points: " + string_champion_points
                                 file_champ_ID.close()
+                                # Output File
                                 file_champs.write(int_to_count.__str__() +
                                                   ". Champion: " + line[line.find(":") + 1:] +
                                                   ", Level: " + string_champion_level +
