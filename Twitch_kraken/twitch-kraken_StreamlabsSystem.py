@@ -15,7 +15,7 @@ clr.AddReference("IronPython.Modules.dll")
 # ---------------------------
 #   [Required] Script Information
 # ---------------------------
-ScriptName = "Twitch Clip/Video Script"
+ScriptName = "Twitch (kraken) Clip/Video Script"
 Website = "https://twitch.tv/RzR32"
 Description = "If a new Clip/Video get create, send a message in the chat with the link"
 Creator = "RzR32"
@@ -27,8 +27,8 @@ Version = "0.1"
 
 settingsFile = os.path.join(os.path.dirname(__file__), "settings.json")
 # Path for the clip file
-file_latest_clip_path = "Services/Scripts/Twitch/latest_clip.txt"
-file_latest_video_path = "Services/Scripts/Twitch/latest_video.txt"
+file_latest_clip_path = "Services/Scripts/Twitch_kraken/latest_clip.txt"
+file_latest_video_path = "Services/Scripts/Twitch_kraken/latest_video.txt"
 
 
 # ---------------------------------------
@@ -90,7 +90,7 @@ def Init():
 
 
 # ---------------------------
-#   TIMER
+#   make the request
 # ---------------------------
 def twitch_request():
     username = ScriptSettings.Twitchname
@@ -99,7 +99,7 @@ def twitch_request():
     # CLIP
     if ScriptSettings.Clips:
         period = ScriptSettings.Clips_Period
-        limit = ScriptSettings.Clips_Limit.__str__()[:-2]
+        limit = int(ScriptSettings.Clips_Limit)
         #
         curator = ""
         slug = ""
@@ -109,7 +109,7 @@ def twitch_request():
 
         # MAKE REQUEST FOR TWITCH CLIPS
         url_clips = "https://api.twitch.tv/kraken/clips/top?channel=" + username + "&period=" + period + \
-                    "&limit=" + limit
+                    "&limit=" + limit.__str__()
         r = Parent.GetRequest(url_clips, headers={"client-id": Token, "accept": "application/vnd.twitchtv.v5+json"})
         clip_in_one_string = r.split("}}")
 
@@ -170,7 +170,7 @@ def twitch_request():
         #
         extra = ""
         # up to 100
-        limit = ScriptSettings.Clips_Limit.__str__()[:-2]
+        limit = int(ScriptSettings.Videos_Limit)
 
         # get the userid from the streamer
         url_user = "https://api.twitch.tv/kraken/users?login=" + username
@@ -186,7 +186,7 @@ def twitch_request():
         if archive:
             extra = extra + "?broadcast_type=archive"
         if upload:
-            extra = extra + "?broadcast_type=upload?"
+            extra = extra + "?broadcast_type=upload"
         if broadcast:
             extra = extra + "?broadcast_type=highlight"
 

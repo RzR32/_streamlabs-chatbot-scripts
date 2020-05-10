@@ -91,8 +91,8 @@
     "min": 1,
     "max": 100,
     "ticks": 1,
-    "label": "How many Clips should be checked.",
-    "tooltip": "How many Clips should be checked.",
+    "label": "How many Videos should be checked.",
+    "tooltip": "How many Videos should be checked.",
     "group": "Videos"
   },
   "del_latest_videos.txt": {

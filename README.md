@@ -22,13 +22,16 @@ These scripts are created for private use and are theoretically only for the Str
 ---
 
 # Twitch
+The Twitch v5 (kraken) API is deprecated and will be shutdown in the future.
+In this case I have already made the Script in the newer Version (helix).
 - you can setup your TwitchName
 - dis- / enable Clips
-    - set the period: day, week, month or all
-    - also a limit 1 - 100
+    - (kraken) set the period: day, week, month or all
+    - (helix) set the startup to check
+    - limit 1 - 100
 - dis- / enable Videos
     - dis- / enable Archive(old Stream), Upload(self explaining) or/and Broadcast(Highlight)
-    - also a limit 1 - 100
+    - limit 1 - 100
 - Stream, Discord and/or Both Chat
 - setup the Query rate
 - you just need your own Twitch API key [Twitch Console](https://dev.twitch.tv/console)
