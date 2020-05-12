@@ -138,7 +138,7 @@ def twitch_request():
                     one_clip = one_clip.replace("\"", "").replace("\\", "")
 
                     if one_clip.startswith("slug:"):
-                        slug = "https:clips.twitch.tv/" + one_clip[5:]
+                        slug = "https://clips.twitch.tv/" + one_clip[5:]
 
                     if one_clip.startswith("name:") and found == 0:
                         found += 1
