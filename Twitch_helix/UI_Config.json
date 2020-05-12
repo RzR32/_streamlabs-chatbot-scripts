@@ -69,7 +69,7 @@
     "type": "checkbox",
     "value": false,
     "label": "Upload dis- / enable",
-    "tooltip": "True if you want to check for new Upload\"",
+    "tooltip": "True if you want to check for new Upload",
     "group": "Videos"
   },
   "Videos_Broadcast": {

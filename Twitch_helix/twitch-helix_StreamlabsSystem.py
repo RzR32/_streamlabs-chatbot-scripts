@@ -148,7 +148,7 @@ def twitch_request():
                 for one_clip in string_clip:
 
                     if one_clip.startswith("id:"):
-                        id = "https:clips.twitch.tv/" + one_clip[3:]
+                        id = "https://clips.twitch.tv/" + one_clip[3:]
 
                     if one_clip.startswith("creator_name:"):
                         creator_name = one_clip[13:]
