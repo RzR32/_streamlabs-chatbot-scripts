@@ -27,14 +27,14 @@
     "tooltip": "Riot Server",
     "group": "League"
   },
-  "Elo": {
+  "Elo_solo_flex": {
     "type": "textbox",
     "value": "!elo",
     "label": "How the Command will be triggered.",
     "tooltip": "How the Command will be triggered.",
-    "group": "Elo"
+    "group": "Elo (Solo - Flex)"
   },
-  "Elo_Cooldown": {
+  "Elo_Cooldown_solo_flex": {
     "type": "slider",
     "value": 10,
     "min": 0,
@@ -42,9 +42,9 @@
     "ticks": 1,
     "label": "Cooldown (seconds)",
     "tooltip": "How long the command should go on cooldown for.",
-    "group": "Elo"
+    "group": "Elo (Solo - Flex)"
   },
-  "Elo_Permission": {
+  "Elo_Permission_solo_flex": {
     "type": "dropdown",
     "value": "Everyone",
     "items": [
@@ -57,9 +57,9 @@
     ],
     "label": "Permission",
     "tooltip": "Who is able to use the command",
-    "group": "Elo"
+    "group": "Elo (Solo - Flex)"
   },
-  "Elo_Usage": {
+  "Elo_Usage_solo_flex": {
     "type": "dropdown",
     "value": "Stream Chat",
     "items": [
@@ -69,7 +69,51 @@
     ],
     "label": "Usage",
     "tooltip": "Usage for where the script can be used!",
-    "group": "Elo"
+    "group": "Elo (Solo - Flex)"
+  },
+  "Elo_tft": {
+  "type": "textbox",
+  "value": "!tft",
+  "label": "How the Command will be triggered.",
+  "tooltip": "How the Command will be triggered.",
+  "group": "Elo (TfT)"
+  },
+  "Elo_Cooldown_tft": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "Elo (TfT)"
+  },
+  "Elo_Permission_tft": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "Elo (TfT)"
+  },
+  "Elo_Usage_tft": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
+    "label": "Usage",
+    "tooltip": "Usage for where the script can be used!",
+    "group": "Elo (TfT)"
   },
   "Mastery": {
     "type": "textbox",
@@ -125,10 +169,17 @@
     "tooltip": "Usage for where the script can be used!",
     "group": "Mastery"
   },
-  "Token": {
+  "Token_lol": {
     "type": "textbox",
     "value": "",
-    "label": "Riot Games API Token",
+    "label": "Riot Games API Token (for LoL)",
+    "tooltip": "Enter your Riot Games Api Token here.",
+    "group": "Token"
+  },
+  "Token_tft": {
+    "type": "textbox",
+    "value": "",
+    "label": "Riot Games API Token (for TfT)",
     "tooltip": "Enter your Riot Games Api Token here.",
     "group": "Token"
   },

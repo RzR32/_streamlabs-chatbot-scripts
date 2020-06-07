@@ -45,11 +45,16 @@ class Settings:
             # League
             self.SummonerName = "RzR32"
             self.Server = "euw1"
-            # Elo
-            self.Elo = "!elo"
-            self.Elo_Cooldown = 10
-            self.Elo_Permission = "Everyone"
-            self.Elo_Usage = "Stream Chat"
+            # Elo - Solo / Flex
+            self.Elo_solo_flex = "!elo"
+            self.Elo_Cooldown_solo_flex = 10
+            self.Elo_Permission_solo_flex = "Everyone"
+            self.Elo_Usage_solo_flex = "Stream Chat"
+            # Elo - TfT
+            self.Elo_tft = "!tft"
+            self.Elo_Cooldown_tft = 10
+            self.Elo_Permission_tft = "Everyone"
+            self.Elo_Usage_tft = "Stream Chat"
             # Mastery
             self.Mastery = "!mastery"
             self.Mastery_Cooldown = 10
@@ -57,7 +62,8 @@ class Settings:
             self.Mastery_Count = 3
             self.Mastery_Usage = "Stream Chat"
             # Token
-            self.Token = ""
+            self.Token_lol = ""
+            self.Token_tft = ""
             # Query
             self.Query = 5
 
@@ -124,25 +130,44 @@ def Init():
 #   [Required] Execute Data / Process messages
 # ---------------------------
 def Execute(data):
+    #
     # Elo
     # if the cmd is on cool down
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and Parent.IsOnUserCooldown(
-            ScriptName, ScriptSettings.Elo, data.User):
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo_solo_flex and Parent.IsOnUserCooldown(
+            ScriptName, ScriptSettings.Elo_solo_flex, data.User):
         Parent.SendStreamMessage(
-            "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Elo, data.User)))
+            "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Elo_solo_flex, data.User)))
     # make the cmd, if not on cool down
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo and not Parent.IsOnUserCooldown(
-            ScriptName, ScriptSettings.Elo, data.User) and Parent.HasPermission(data.User,
-                                                                                ScriptSettings.Elo_Permission,
-                                                                                ScriptSettings.SummonerName):
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo_solo_flex and not Parent.IsOnUserCooldown(
+            ScriptName, ScriptSettings.Elo_solo_flex, data.User) and Parent.HasPermission(
+                data.User, ScriptSettings.Elo_Permission_solo_flex, ScriptSettings.SummonerName):
         if data.IsFromTwitch():
-            if ScriptSettings.Elo_Usage == "Stream Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+            if ScriptSettings.Elo_Usage_solo_flex == "Stream Chat" or ScriptSettings.Elo_Usage_solo_flex == "Chat Both":
                 ELO("twitch")
         if data.IsFromDiscord():
-            if ScriptSettings.Elo_Usage == "Discord Chat" or ScriptSettings.Elo_Usage == "Chat Both":
+            if ScriptSettings.Elo_Usage_solo_flex == "Discord Chat" or ScriptSettings.Elo_Usage_solo_flex == "Chat Both":
                 ELO("discord")
         # set the cool down
-        Parent.AddUserCooldown(ScriptName, ScriptSettings.Elo, data.User, ScriptSettings.Elo_Cooldown)
+        Parent.AddUserCooldown(ScriptName, ScriptSettings.Elo_solo_flex, data.User, ScriptSettings.Elo_Cooldown_solo_flex)
+    #
+    # TfT
+    # if the cmd is on cool down
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo_tft and Parent.IsOnUserCooldown(
+            ScriptName, ScriptSettings.Elo_tft, data.User):
+        Parent.SendStreamMessage(
+            "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Elo_tft, data.User)))
+    # make the cmd, if not on cool down
+    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Elo_tft and not Parent.IsOnUserCooldown(
+            ScriptName, ScriptSettings.Elo_tft, data.User) and Parent.HasPermission(
+                data.User, ScriptSettings.Elo_Permission_tft, ScriptSettings.SummonerName):
+        if data.IsFromTwitch():
+            if ScriptSettings.Elo_Usage_tft == "Stream Chat" or ScriptSettings.Elo_Usage_tft == "Chat Both":
+                TFT("twitch")
+        if data.IsFromDiscord():
+            if ScriptSettings.Elo_Usage_tft == "Discord Chat" or ScriptSettings.Elo_Usage_tft == "Chat Both":
+                TFT("discord")
+        # set the cool down
+        Parent.AddUserCooldown(ScriptName, ScriptSettings.Elo_tft, data.User, ScriptSettings.Elo_Cooldown_tft)
     #
     # Mastery
     # if the cmd is on cool down
@@ -152,9 +177,8 @@ def Execute(data):
             "Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Mastery, data.User)))
     # make the cmd, if not on cool down
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Mastery and not Parent.IsOnUserCooldown(
-            ScriptName, ScriptSettings.Mastery, data.User) and Parent.HasPermission(data.User,
-                                                                                    ScriptSettings.Mastery_Permission,
-                                                                                    ScriptSettings.SummonerName):
+            ScriptName, ScriptSettings.Mastery, data.User) and Parent.HasPermission(
+                data.User, ScriptSettings.Mastery_Permission, ScriptSettings.SummonerName):
         if data.IsFromTwitch():
             if ScriptSettings.Mastery_Usage == "Stream Chat" or ScriptSettings.Mastery_Usage == "Chat Both":
                 MASTERY("twitch")
@@ -176,9 +200,8 @@ def ELO(Usage):
     # Riot Server
     _Server = ScriptSettings.Server
     # Riot Games API Token
-    Token = ScriptSettings.Token
-    headers = {"X-Riot-Token": Token}
-    # Global Var
+    Token_lol = ScriptSettings.Token_lol
+    headers_lol = {"X-Riot-Token": Token_lol}
 
     # String for the Summoner ID, needed to do the other request´s
     s_id = ""
@@ -200,7 +223,7 @@ def ELO(Usage):
 
     # get SummonerID from summonerName
     url_summonerid = "https://" + _Server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-    result_summonerid = Parent.GetRequest(url_summonerid + SummonerName, headers)
+    result_summonerid = Parent.GetRequest(url_summonerid + SummonerName, headers_lol)
     out_summonerid = result_summonerid.split("\n")
 
     for s_summonerid in out_summonerid:
@@ -221,7 +244,7 @@ def ELO(Usage):
 
     # get Solo/Flex elo
     url_league = "https://" + _Server + ".api.riotgames.com/lol/league/v4/entries/by-summoner/"
-    result_league = Parent.GetRequest(url_league + s_id, headers)
+    result_league = Parent.GetRequest(url_league + s_id, headers_lol)
     out_league = result_league.split(",")
 
     for s_league in out_league:
@@ -245,12 +268,12 @@ def ELO(Usage):
 
             # tier image
             filename = string_tier.lower() + "_" + string_rank.lower() + ".png"
-            file_src = "Services/Scripts/League/data/stuff/Images/" + string_tier.lower() + "/" + filename
-            file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/rank.png"
+            file_src = "Services/Scripts/League_All-in-One/data/stuff/Images/" + string_tier.lower() + "/" + filename
+            file_dst = "Services/Scripts/League_All-in-One/data/ranks/" + string_type.lower() + "/rank.png"
             copy(file_src, file_dst)
             # tier trim
-            file_src = "Services/Scripts/League/data/stuff/Images/trims/" + string_tier.lower() + ".png"
-            file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/trim.png"
+            file_src = "Services/Scripts/League_All-in-One/data/stuff/Images/trims/" + string_tier.lower() + ".png"
+            file_dst = "Services/Scripts/League_All-in-One/data/ranks/" + string_type.lower() + "/trim.png"
             copy(file_src, file_dst)
         elif s_league.startswith("progress"):
             string_progress = s_league[9:]
@@ -261,16 +284,16 @@ def ELO(Usage):
             elif string_type.__contains__("FLEX"):
                 string_flex = string_flex + " " + string_progress
 
-    file_src_unranked = "Services/Scripts/League/data/stuff/Images/not_ranked/unranked.png"
-    file_src_trim = "Services/Scripts/League/data/stuff/Images/trims/default.png"
+    file_src_unranked = "Services/Scripts/League_All-in-One/data/stuff/Images/not_ranked/unranked.png"
+    file_src_trim = "Services/Scripts/League_All-in-One/data/stuff/Images/trims/default.png"
 
     # Output for the files
-    file_path___solo_path = "Services/Scripts/League/data/ranks/solo/solo_duo.txt"
+    file_path___solo_path = "Services/Scripts/League_All-in-One/data/ranks/solo/solo_duo.txt"
     file_solo = open(file_path___solo_path, "w")
     file_solo.write(string_solo)
     file_solo.close()
 
-    file_path___flex_path = "Services/Scripts/League/data/ranks/flex/flex.txt"
+    file_path___flex_path = "Services/Scripts/League_All-in-One/data/ranks/flex/flex.txt"
     file_flex = open(file_path___flex_path, "w")
     file_flex.write(string_flex)
     file_flex.close()
@@ -278,31 +301,86 @@ def ELO(Usage):
     if string_solo.__eq__(""):
         string_solo = "SOLO Unranked"
         # tier image
-        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/solo/rank.png"
+        file_dst_unranked_rank = "Services/Scripts/League_All-in-One/data/ranks/solo/rank.png"
         copy(file_src_unranked, file_dst_unranked_rank)
         # tier trim
-        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/solo/trim.png"
+        file_dst_unranked_trim = "Services/Scripts/League_All-in-One/data/ranks/solo/trim.png"
         copy(file_src_trim, file_dst_unranked_trim)
 
     if string_flex.__eq__(""):
         string_flex = "FLEX Unranked"
         # tier image
-        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/flex/rank.png"
+        file_dst_unranked_rank = "Services/Scripts/League_All-in-One/data/ranks/flex/rank.png"
         copy(file_src_unranked, file_dst_unranked_rank)
         # tier trim
-        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/flex/trim.png"
+        file_dst_unranked_trim = "Services/Scripts/League_All-in-One/data/ranks/flex/trim.png"
         copy(file_src_trim, file_dst_unranked_trim)
 
-    # reset string´s
+    # Output for the Chat
+    string_out_elo = " ♦ " + string_solo + " ♦ " + string_flex + " ♦ "
+
+    if Usage == "twitch" or Usage == "Chat Both":
+        Parent.SendStreamMessage(string_out_elo)
+    if Usage == "discord" or Usage == "Chat Both":
+        Parent.SendDiscordMessage(string_out_elo)
+    return
+
+
+# ---------------------------------------
+# TfT functions
+# ---------------------------------------
+def TFT(Usage):
+    # Global Var
+    SummonerName = ScriptSettings.SummonerName
+    # Riot Server
+    _Server = ScriptSettings.Server
+    # Riot Games API Token
+    Token_tft = ScriptSettings.Token_tft
+    headers_tft = {"X-Riot-Token": Token_tft}
+    # Global Var
+
+    # String for the Summoner ID, needed to do the other request´s
+    s_id = ""
+
+    # String´s for the Output
+    string_solo = ""
+    string_flex = ""
+    string_tft = ""
+
+    # String´s to temporarily save the other string´s
     string_type = ""
     string_rank = ""
     string_tier = ""
     string_leaguePoints = ""
     string_progress = ""
 
+    # String for the output
+    string_out_elo = ""
+
+    # get SummonerID from summonerName
+    url_summonerid = "https://" + _Server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
+    result_summonerid = Parent.GetRequest(url_summonerid + SummonerName, headers_tft)
+    out_summonerid = result_summonerid.split("\n")
+
+    for s_summonerid in out_summonerid:
+        s_summonerid = s_summonerid.replace(",", " ")
+        s_summonerid = s_summonerid.replace("{", "").replace("}", "")
+        s_summonerid = s_summonerid.replace("\"", "").replace("\\", "")
+
+        if s_summonerid.__contains__("status: 4"):
+            Parent.Log(ScriptName, "Execution failed! (Client Side)")
+            return
+        elif s_summonerid.__contains__("status: 5"):
+            Parent.Log(ScriptName, "Execution failed! (Server Side)")
+            return
+
+        if s_summonerid.__contains__("response: id:"):
+            s_id = s_summonerid[15:]
+            s_id = s_id[:48]
+
     # get TfT elo
     url_tft = "https://" + _Server + ".api.riotgames.com/tft/league/v1/entries/by-summoner/"
-    result_tft = Parent.GetRequest(url_tft + s_id, headers)
+    result_tft = Parent.GetRequest(url_tft + s_id, headers_tft)
     out_tft = result_tft.split(",")
 
     for s_tft in out_tft:
@@ -323,37 +401,42 @@ def ELO(Usage):
             string_progress = string_progress.replace("N", "/")
 
     string_tft = string_type + " " + string_tier + " " + string_rank + " " + string_leaguePoints + " " + string_progress
+
+    # Output for image standard - unranked
+    file_src_unranked = "Services/Scripts/League_All-in-One/data/stuff/Images/not_ranked/unranked.png"
+    file_src_trim = "Services/Scripts/League_All-in-One/data/stuff/Images/trims/default.png"
+
     # tier image
     filename = string_tier.lower() + "_" + string_rank.lower() + ".png"
-    file_src = "Services/Scripts/League/data/stuff/Images/" + string_tier.lower() + "/" + filename
-    file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/rank.png"
+    file_src = "Services/Scripts/League_All-in-One/data/stuff/Images/" + string_tier.lower() + "/" + filename
+    file_dst = "Services/Scripts/League_All-in-One/data/ranks/" + string_type.lower() + "/rank.png"
     copy(file_src, file_dst)
     # tier trim
-    file_src = "Services/Scripts/League/data/stuff/Images/trims/" + string_tier.lower() + ".png"
-    file_dst = "Services/Scripts/League/data/ranks/" + string_type.lower() + "/trim.png"
+    file_src = "Services/Scripts/League_All-in-One/data/stuff/Images/trims/" + string_tier.lower() + ".png"
+    file_dst = "Services/Scripts/League_All-in-One/data/ranks/" + string_type.lower() + "/trim.png"
     copy(file_src, file_dst)
 
+    # Output for image - unranked
     if string_tft.__eq__(""):
         string_tft = "TFT Unranked"
         # tier image
-        file_dst_unranked_rank = "Services/Scripts/League/data/ranks/tft/rank.png"
+        file_dst_unranked_rank = "Services/Scripts/League_All-in-One/data/ranks/tft/rank.png"
         copy(file_src_unranked, file_dst_unranked_rank)
         # tier trim
-        file_dst_unranked_trim = "Services/Scripts/League/data/ranks/tft/trim.png"
+        file_dst_unranked_trim = "Services/Scripts/League_All-in-One/data/ranks/tft/trim.png"
         copy(file_src_trim, file_dst_unranked_trim)
 
-    file_path___tft_path = "Services/Scripts/League/data/ranks/tft/tft.txt"
+    # Output for the text files
+    file_path___tft_path = "Services/Scripts/League_All-in-One/data/ranks/tft/tft.txt"
     file_tft = open(file_path___tft_path, "w")
     file_tft.write(string_tft)
     file_tft.close()
 
     # Output for the Chat
-    string_out_elo = " ♦ " + string_solo + " ♦ " + string_flex + " ♦ " + string_tft + " ♦ "
-
-    if Usage == "twitch":
-        Parent.SendStreamMessage(string_out_elo)
-    elif Usage == "discord":
-        Parent.SendDiscordMessage(string_out_elo)
+    if Usage == "twitch" or Usage == "Chat Both":
+        Parent.SendStreamMessage(" ♦ " + string_tft + " ♦ ")
+    if Usage == "discord" or Usage == "Chat Both":
+        Parent.SendStreamMessage(" ♦ " + string_tft + " ♦ ")
     return
 
 
@@ -366,8 +449,8 @@ def MASTERY(Usage):
     # Riot Server
     _Server = ScriptSettings.Server
     # Riot Games API Token
-    Token = ScriptSettings.Token
-    headers = {"X-Riot-Token": Token}
+    Token_lol = ScriptSettings.Token_lol
+    headers_lol = {"X-Riot-Token": Token_lol}
     headers_json = {"content-type": "application/json"}
     # Global Var
 
@@ -399,7 +482,7 @@ def MASTERY(Usage):
                                               headers_json)
     out_game_version = response_game_version.split(',')
 
-    file_path___champ_ID = "Services/Scripts/League/data/stuff/Champion_ID.txt"
+    file_path___champ_ID = "Services/Scripts/League_All-in-One/data/stuff/Champion_ID.txt"
     file_champ_ID = open(file_path___champ_ID, "w")
 
     for s_game_version in out_game_version:
@@ -447,7 +530,7 @@ def MASTERY(Usage):
 
     # get SummonerID from summonerName
     url_summonerid = "https://" + _Server + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-    result_summonerid = Parent.GetRequest(url_summonerid + SummonerName, headers)
+    result_summonerid = Parent.GetRequest(url_summonerid + SummonerName, headers_lol)
     out_summonerid = result_summonerid.split("\n")
 
     for s_summonerid in out_summonerid:
@@ -470,7 +553,7 @@ def MASTERY(Usage):
             # get mastery from user
             url_champion_mastery = "https://" + _Server + ".api.riotgames.com/lol/champion-mastery/v4" \
                                                           "/champion-masteries/by-summoner/" + s_id
-            response_champion_mastery = Parent.GetRequest(url_champion_mastery, headers)
+            response_champion_mastery = Parent.GetRequest(url_champion_mastery, headers_lol)
 
             out_champion_mastery = response_champion_mastery.split(",")
 
@@ -494,7 +577,7 @@ def MASTERY(Usage):
                     if int_to_count < int_config:
                         int_to_count += 1
 
-                        file_path___champs = "Services/Scripts/League/data/champs/champ" + \
+                        file_path___champs = "Services/Scripts/League_All-in-One/data/champs/champ" + \
                                              int_to_count.__str__() + ".txt"
                         file_champs = open(file_path___champs, "w")
 
@@ -520,9 +603,9 @@ def MASTERY(Usage):
                     else:
                         break
     # OUTPUT
-    if Usage == "twitch":
+    if Usage == "twitch" or Usage == "Chat Both":
         Parent.SendStreamMessage(string_out_mastery + " ♦ ")
-    elif Usage == "discord":
+    if Usage == "discord" or Usage == "Chat Both":
         Parent.SendDiscordMessage(string_out_mastery + " ♦ ")
     return
 
@@ -532,6 +615,7 @@ def MASTERY(Usage):
 # ---------------------------
 def start():
     ELO("")
+    TFT("")
     MASTERY("")
 
 
