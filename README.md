@@ -1,6 +1,6 @@
 These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe they work somewhere else, but I do not guarantee this)
 
-As an alternative, I tried to make the script public without using the script here ... unfortunately there are no commands about it, only intended for overlay. [Link to my website](https://ryzox.de/League/)
+As an alternative, I tried to make the script public on my [https://ryzox.de/League/](website) without using the script here ... unfortunately there are no commands about it, only intended for overlay.
 ---
 # League
 - you can setup your SummonerName + Riot Server
