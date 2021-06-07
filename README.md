@@ -1,11 +1,6 @@
-> * you can find me on:
->   * [Twitch](https://www.twitch.tv/rzr32)
->   * Discord RzR32#4407
-
----
-
 These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe they work somewhere else, but I do not guarantee this)
 
+As an alternative, I tried to make the script public without using the script here ... unfortunately there are no commands about it, only intended for overlay. [https://ryzox.de/League/](Link to my website)
 ---
 # League
 - you can setup your SummonerName + Riot Server
