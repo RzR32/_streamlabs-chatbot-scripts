@@ -1,9 +1,3 @@
-> * you can find me on:
->   * [Twitch](https://www.twitch.tv/rzr32)
->   * Discord RzR32#4407
-
----
-
 These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe this work somewhere else, but I do not guarantee this)
 
 ---
