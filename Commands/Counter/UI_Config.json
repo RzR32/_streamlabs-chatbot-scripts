@@ -1,0 +1,293 @@
+{
+  "output_file": "settings.json",
+  "int_Trigger": {
+    "type": "textbox",
+    "value": "!int",
+    "label": "Usage",
+    "tooltip": "Usage",
+    "group": "int"
+  },
+  "int_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "int"
+  },
+  "int_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "int"
+  },
+  "int_Target": {
+    "type": "dropdown",
+    "value": "TargetUser",
+    "items": [
+      "TargetUser",
+      "StreamUser",
+      "SpecialUser"
+    ],
+    "label": "Enter the target",
+    "tooltip": "Enter the target",
+    "group": "int"
+  },
+  "int_SpecialUser": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Enter Twitch name (if 'SpecialUser' selected)",
+    "tooltip": "without @ in the begin",
+    "group": "int"
+  },
+  "int_Output": {
+    "type": "textbox",
+    "value": "ist schon <X> mal die Mitte runtergerannt!",
+    "label": "Output for the command",
+    "tooltip": "<X> for the var",
+    "group": "int"
+  },
+  "cannon_Trigger": {
+    "type": "textbox",
+    "value": "!cannon",
+    "label": "Usage",
+    "tooltip": "Usage",
+    "group": "cannon"
+  },
+  "cannon_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "cannon"
+  },
+  "cannon_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "cannon"
+  },
+  "cannon_Target": {
+    "type": "dropdown",
+    "value": "TargetUser",
+    "items": [
+      "TargetUser",
+      "StreamUser",
+      "SpecialUser"
+    ],
+    "label": "Enter the target",
+    "tooltip": "Enter the target",
+    "group": "cannon"
+  },
+  "cannon_SpecialUser": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Enter Twitch name (if 'SpecialUser' selected)",
+    "tooltip": "without @ in the begin",
+    "group": "cannon"
+  },
+  "cannon_Output": {
+    "type": "textbox",
+    "value": "hat schon <X> mal den Cannon angetoucht!",
+    "label": "Output for the command",
+    "tooltip": "<X> for the var",
+    "group": "cannon"
+  },
+  "ult_Trigger": {
+    "type": "textbox",
+    "value": "!ult",
+    "label": "Usage",
+    "tooltip": "Usage",
+    "group": "ult"
+  },
+  "ult_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "ult"
+  },
+  "ult_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "ult"
+  },
+  "ult_Target": {
+    "type": "dropdown",
+    "value": "TargetUser",
+    "items": [
+      "TargetUser",
+      "StreamUser",
+      "SpecialUser"
+    ],
+    "label": "Enter the target",
+    "tooltip": "Enter the target",
+    "group": "ult"
+  },
+  "ult_SpecialUser": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Enter Twitch name (if 'SpecialUser' selected)",
+    "tooltip": "without @ in the begin",
+    "group": "ult"
+  },
+  "ult_Output": {
+    "type": "textbox",
+    "value": "hat schon <X> mal kein Zielwasser getrunken!",
+    "label": "Output for the command",
+    "tooltip": "<X> for the var",
+    "group": "ult"
+  },
+  "flash_Trigger": {
+    "type": "textbox",
+    "value": "!flash",
+    "label": "Usage",
+    "tooltip": "Usage",
+    "group": "flash"
+  },
+  "flash_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "flash"
+  },
+  "flash_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "flash"
+  },
+  "flash_Target": {
+    "type": "dropdown",
+    "value": "TargetUser",
+    "items": [
+      "TargetUser",
+      "StreamUser",
+      "SpecialUser"
+    ],
+    "label": "Enter the target",
+    "tooltip": "Enter the target",
+    "group": "flash"
+  },
+  "flash_SpecialUser": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Enter Twitch name (if 'SpecialUser' selected)",
+    "tooltip": "without @ in the begin",
+    "group": "flash"
+  },
+  "flash_Output": {
+    "type": "textbox",
+    "value": "hat schon <X> mal sein Flash vergessen!",
+    "label": "Output for the command",
+    "tooltip": "<X> for the var",
+    "group": "flash"
+  },
+  "ignite_Trigger": {
+    "type": "textbox",
+    "value": "!ignite",
+    "label": "Usage",
+    "tooltip": "Usage",
+    "group": "ignite"
+  },
+  "ignite_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "ignite"
+  },
+  "ignite_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "ignite"
+  },
+  "ignite_Target": {
+    "type": "dropdown",
+    "value": "TargetUser",
+    "items": [
+      "TargetUser",
+      "StreamUser",
+      "SpecialUser"
+    ],
+    "label": "Enter the target",
+    "tooltip": "Enter the target",
+    "group": "ignite"
+  },
+  "ignite_SpecialUser": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Enter Twitch name (if 'SpecialUser' selected)",
+    "tooltip": "without @ in the begin",
+    "group": "ignite"
+  },
+  "ignite_Output": {
+    "type": "textbox",
+    "value": "hat schon <X> mal nicht genug Feufeu gehabt!",
+    "label": "Output for the command",
+    "tooltip": "<X> for the var",
+    "group": "ignite"
+  }
+}

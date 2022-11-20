@@ -1,0 +1,115 @@
+{
+  "output_file": "settings.json",
+  "SummonerName": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "SummonerName",
+    "tooltip": "SummonerName",
+    "group": "League"
+  },
+  "Server": {
+    "type": "dropdown",
+    "value": "euw1",
+    "items": [
+      "br1",
+      "eun1",
+      "euw1",
+      "jp1",
+      "kr",
+      "la1",
+      "la2",
+      "na1",
+      "oc1",
+      "ru",
+      "tr1"
+    ],
+    "label": "Server on which the summoner is playing.",
+    "tooltip": "Riot Server",
+    "group": "League"
+  },
+  "Elo": {
+    "type": "textbox",
+    "value": "!tft",
+    "label": "How the Command will be triggered.",
+    "tooltip": "How the Command will be triggered.",
+    "group": "Elo"
+  },
+  "Elo_Cooldown": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Cooldown (seconds)",
+    "tooltip": "How long the command should go on cooldown for.",
+    "group": "Elo"
+  },
+  "Elo_Permission": {
+    "type": "dropdown",
+    "value": "Everyone",
+    "items": [
+      "Everyone",
+      "Regular",
+      "Subscriber",
+      "Moderator",
+      "Editor",
+      "Caster"
+    ],
+    "label": "Permission",
+    "tooltip": "Who is able to use the command",
+    "group": "Elo"
+  },
+  "Elo_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
+    "label": "Usage",
+    "tooltip": "Usage for where the script can be used!",
+    "group": "Elo"
+  },
+  "Token": {
+    "type": "textbox",
+    "value": "",
+    "label": "Riot Games API Token",
+    "tooltip": "Enter your Riot Games Api Token here.",
+    "group": "Token"
+  },
+  "openWebsite": {
+    "type": "button",
+    "label": "Open the Riot Games Developer website",
+    "tooltip": "Don't worry about the cmd window.",
+    "function": "OpenRiotAPI",
+    "wsevent": "",
+    "group": "Token"
+  },
+  "Query": {
+    "type": "slider",
+    "value": 5,
+    "min": 1,
+    "max": 60,
+    "ticks": 1,
+    "label": "Query rate",
+    "tooltip": "Specification in minuten.",
+    "group": "Query"
+  },
+  "start": {
+    "type": "button",
+    "label": "checking once",
+    "tooltip": "checking once - manuel",
+    "function": "start",
+    "wsevent": "",
+    "group": "Query"
+  },
+  "start_Timer": {
+    "type": "button",
+    "label": "start checking (only press once)",
+    "tooltip": "start checking - timer",
+    "function": "start_Timer",
+    "wsevent": "",
+    "group": "Query"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "output_file": "settings.json",
+  "Twitchname": {
+    "type": "textbox",
+    "value": "RzR32",
+    "label": "Twitchname",
+    "tooltip": "Twitchname",
+    "group": "Twitch"
+  },
+  "Clips": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Clips dis- / enable",
+    "tooltip": "True if you want to check for new Clips",
+    "group": "Clips"
+  },
+  "Clips_Period": {
+    "type": "dropdown",
+    "value": "day",
+    "items": [
+      "day",
+      "week",
+      "month",
+      "all"
+    ],
+    "label": "Which time period should be queried.",
+    "tooltip": "Which time period should be queried.",
+    "group": "Clips"
+  },
+  "Clips_Limit": {
+    "type": "slider",
+    "value": 10,
+    "min": 1,
+    "max": 100,
+    "ticks": 1,
+    "label": "How many Clips should be checked.",
+    "tooltip": "How many Clips should be checked.",
+    "group": "Clips"
+  },
+  "del_latest_clip.txt": {
+    "type": "button",
+    "label": "Delete the txt. file for the latest clips.",
+    "tooltip": "Delete the txt. file for the latest clips.",
+    "function": "del_latest_clip",
+    "wsevent": "",
+    "group": "Clips"
+  },
+  "Clips_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
+    "label": "Usage",
+    "tooltip": "Usage for where the script shows!",
+    "group": "Clips"
+  },
+  "Videos": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Videos dis- / enable",
+    "tooltip": "True if you want to check for new Videos",
+    "group": "Videos"
+  },
+  "Videos_Archive": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Archive dis- / enable",
+    "tooltip": "True if you want to check for new Archive",
+    "group": "Videos"
+  },
+  "Videos_Upload": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Upload dis- / enable",
+    "tooltip": "True if you want to check for new Upload",
+    "group": "Videos"
+  },
+  "Videos_Broadcast": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Broadcast dis- / enable",
+    "tooltip": "True if you want to check for new Broadcast (Highlights)",
+    "group": "Videos"
+  },
+  "Videos_Limit": {
+    "type": "slider",
+    "value": 10,
+    "min": 1,
+    "max": 100,
+    "ticks": 1,
+    "label": "How many Videos should be checked.",
+    "tooltip": "How many Videos should be checked.",
+    "group": "Videos"
+  },
+  "del_latest_videos.txt": {
+    "type": "button",
+    "label": "Delete the txt. file for the latest videos.",
+    "tooltip": "Delete the txt. file for the latest videos.",
+    "function": "del_latest_video",
+    "wsevent": "",
+    "group": "Videos"
+  },
+  "Videos_Usage": {
+    "type": "dropdown",
+    "value": "Stream Chat",
+    "items": [
+      "Stream Chat",
+      "Discord Chat",
+      "Chat Both"
+    ],
+    "label": "Usage",
+    "tooltip": "Usage for where the script shows!",
+    "group": "Videos"
+  },
+  "Token": {
+    "type": "textbox",
+    "value": "",
+    "label": "Twitch API Token",
+    "tooltip": "Enter your Twitch API Token here.",
+    "group": "Token"
+  },
+  "openWebsite": {
+    "type": "button",
+    "label": "Open the Twitch Developer website",
+    "tooltip": "Don't worry about the cmd window.",
+    "function": "OpenReadAPI",
+    "wsevent": "",
+    "group": "Token"
+  },
+  "Query": {
+    "type": "slider",
+    "value": 5,
+    "min": 1,
+    "max": 60,
+    "ticks": 1,
+    "label": "Query rate",
+    "tooltip": "Specification in minuten.",
+    "group": "Query"
+  },
+  "start": {
+    "type": "button",
+    "label": "checking once",
+    "tooltip": "checking once - manuel",
+    "function": "start",
+    "wsevent": "",
+    "group": "Query"
+  },
+  "start_Timer": {
+    "type": "button",
+    "label": "start checking (only press once)",
+    "tooltip": "start checking - timer",
+    "function": "start_Timer",
+    "wsevent": "",
+    "group": "Query"
+  }
+}
