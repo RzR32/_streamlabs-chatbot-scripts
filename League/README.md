@@ -1,3 +1,9 @@
+The script is not improved for the current system. In addition, it will always be difficult to get a key.
+
+This script can now be accessed via my website https://ryzox.de/league/ and is available to everyone.
+
+---
+
 These scripts are created for private use and are theoretically only for the Streamlabs-Chatbot (maybe ther work somewhere else, but I do not guarantee this)
 
 ---
